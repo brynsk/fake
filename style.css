@@ -1,0 +1,277 @@
+/* Base reset and font family */
+body, h1, h2, p, div, span, a, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  /* Dark background and white text by default */
+  background: #000;
+  color: #fff;
+}
+
+/* Color utility classes */
+.dark-bg { background: #000; color: #fff; }
+.red-bg { background: #ff0000; /* bright red */ }
+.white-bg { background: #fff; color: #000; }
+
+/* Logo in header */
+header .logo {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  margin: 0;            /* убираем дефолтный отступ h1 */
+  font-size: 1.5rem;    /* тот же размер, что и на главной */
+  font-weight: 700;
+  z-index: 1000;
+}
+
+/* Scenes layout */
+#scenes-container {
+  /* No specific scroll-snap here since JS will handle snapping */
+}
+.scene {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.scene .full-screen,
+.scene .after-content {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.scene .full-screen {
+  z-index: 2; /* letters layer on top initially */
+}
+.scene .after-content {
+  z-index: 1;
+}
+
+/* Centering and typography for scene content */
+.full-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.letters {
+  font-size: 20vw;
+  font-weight: 700;
+  color: #000; /* black letters on red */
+}
+/* Center content (like "ЧТО?" section, GIF section, etc.) */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  height: 100%;
+}
+.black-square {
+  background: #000;
+  color: #fff;
+  width: 30vmin;
+  height: 30vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5vmin;
+  margin-bottom: 1em;
+}
+/* Text elements inside center-content */
+.center-content p {
+  margin: 0.5em 0;
+}
+.pre-desc {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.description {
+  font-size: 1rem;
+}
+/* GIF placeholder box */
+.gif-placeholder {
+  width: 80%;
+  max-width: 400px;
+  height: 200px;
+  background: #444;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  margin: 1em 0;
+}
+
+.gif-img {
+  width: 80%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.punch-video {
+  width: 80%;
+  max-width: 400px;
+  height: auto;      /* сохранит пропорции */
+  border-radius: 4px;
+  object-fit: cover; /* обрежет, если контейнер другого соотношения */
+}
+
+
+/* Scene 3 specific text */
+.huge-word {
+  font-size: 20vw;
+  font-weight: 700;
+  color: #000;
+}
+.gray-text {
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-top: 0.5em;
+}
+
+/* Final screen styling */
+#final-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.final-word {
+  font-size: 15vw;
+  font-weight: 700;
+  color: #000;
+}
+.tagline {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0.5em 0 1.5em 0;
+  font-style: italic;
+}
+
+/* Buy button (Kупить ничего) */
+.buy-button {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  border: none;
+  /* Simulate a convex (raised) effect with a bottom shadow line */
+  border-bottom: 4px solid #333;
+  cursor: pointer;
+  /* Initial shaking animation */
+  animation: shake 1s ease-in-out infinite;
+}
+/* Hover/focus state for Buy button */
+.buy-button:hover {
+  /* Intensify shake and add glow + dim background */
+  animation: shake-intense 0.2s ease-in-out infinite;
+  box-shadow: 0 0 10px 5px rgba(255,255,255,0.8), 
+              0 0 0 100vmax rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1001; /* bring above dimmed overlay */
+}
+
+/* Shaking keyframes for the button */
+@keyframes shake {
+  0%   { transform: translate(1px, 1px) rotate(0deg); }
+  25%  { transform: translate(-1px, -2px) rotate(-1deg); }
+  50%  { transform: translate(2px, -1px) rotate(1deg); }
+  75%  { transform: translate(-1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -1px) rotate(-1deg); }
+}
+@keyframes shake-intense {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(-3px, 3px) rotate(-2deg); }
+  50%  { transform: translate(3px, -3px) rotate(2deg); }
+  75%  { transform: translate(-4px, 4px) rotate(0deg); }
+  100% { transform: translate(0px, 0px) rotate(-1deg); }
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;      /* чуть мельче, чтобы всё помещалось */
+  line-height: 1.4;
+  color: #777;
+  max-width: 900px;        /* ограничим ширину, чтоб не растягивалось на 4К */
+  margin: 0 auto;          /* центрируем, если max-width сработал */
+  word-break: break-word;  /* вдруг экран совсем узкий */
+}
+
+footer a {
+  color: #777;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* Subscription page styles */
+.subscription-card {
+  background: #ff0000;
+  color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px 20px 60px;  /* extra bottom padding for button space */
+  position: relative;
+  text-align: left;
+}
+.subscription-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+.subscription-card p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.subscribe-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.subscribe-btn:hover {
+  background: #eaeaea;
+}
+
+.policy-container {
+  max-width: 800px;
+  margin: 100px auto 60px;
+  padding: 0 20px;
+  line-height: 1.6;
+}
+
+.policy-container h2, .policy-container h3 {
+  margin: 1.4em 0 0.6em;
+}
+
+header .logo a,
+header .logo a:visited {
+  color: #FFF;       /* красный */
+  text-decoration: none;
+  font-size: inherit;   /* точно такой же размер */
+}

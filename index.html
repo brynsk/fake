@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAKE – Ничего</title>
+  <!-- Link to CSS and Google Font -->
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body class="dark-bg">
+  <!-- Fixed header with logo -->
+  <header>
+    <h1 class="logo">FAKE</h1>
+  </header>
+
+  <!-- Main scenes container (pinned during scroll) -->
+  <main id="scenes-container">
+    <!-- Scene 1: "НИ" -->
+    <section class="scene" id="scene1">
+      <div class="full-screen red-bg">
+        <div class="letters">НИ</div>
+      </div>
+      <div class="after-content white-bg">
+        <div class="center-content">
+          <div class="black-square"><span>ЧТО??</span></div>
+          <p class="description">FAKE — это не продукт. Это сделка между двумя взрослыми людьми. Вы получите ничего.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 2: "ЧЕ" -->
+    <section class="scene" id="scene2">
+      <div class="full-screen red-bg">
+        <div class="letters">ЧЕ</div>
+      </div>
+      <div class="after-content dark-bg">
+        <div class="center-content">
+          <p class="pre-desc">Смотри. Это ты.</p>
+
+
+          <video
+            src="punch.mp4"
+            class="punch-video"
+            autoplay
+            muted
+            loop
+            playsinline
+></video>
+
+
+          <p class="description">FAKE — зеркало, в котором ты сам согласился на ложь.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 3: "ГО" -->
+    <section class="scene" id="scene3">
+      <div class="full-screen red-bg">
+        <div class="letters">ГО</div>
+      </div>
+      <div class="after-content red-bg">
+        <div class="center-content">
+          <h2 class="huge-word">ХУЙ</h2>
+          <p class="gray-text">Мы не пытаемся вам понравиться. Мы просто больше не врём. Это и есть FAKE.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Final screen: "НИЧЕГО" and tagline with Buy button -->
+  <section id="final-screen" class="red-bg">
+    <h2 class="final-word">НИЧЕГО</h2>
+    <p class="tagline">— наш самый совершенный продукт.</p>
+    <a href="subscription.html" class="buy-button">Купить ничего</a>
+  </section>
+
+  <!-- Footer with policy/offer links -->
+  <footer>
+  <p>
+    © 2025 FAKE — честный обман. <br>  
+    ИП Григорьев А.И. ИНН 502991816026  
+    <a href="mailto:support@fake.moscow">support@fake.moscow</a> ·
+    <a href="offer.html">Публичная оферта</a> |
+    <a href="privacy.html">Политика конфиденциальности</a>
+  </p>
+</footer>
+
+
+  <!-- GSAP and ScrollTrigger scripts, and main script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
