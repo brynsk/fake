@@ -220,58 +220,250 @@ footer a:hover {
   text-decoration: underline;
 }
 
-
-/* Subscription page styles */
-.subscription-card {
-  background: #ff0000;
-  color: #fff;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 20px 20px 60px;  /* extra bottom padding for button space */
-  position: relative;
-  text-align: left;
-}
-.subscription-card h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5em;
-}
-.subscription-card p {
-  font-size: 1rem;
-  line-height: 1.4;
-}
-.subscribe-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-.subscribe-btn:hover {
-  background: #eaeaea;
+/* -----------------------------------------------------------------------------
+   Ссылки‑плейсхолдеры внутри корзины: чёрные, не кликабельные
+----------------------------------------------------------------------------- */
+.fake-link,
+.bag-wrapper a,
+.item-remove span {
+  color:#000;
+  text-decoration:none;
+  cursor:default;
 }
 
-.policy-container {
-  max-width: 800px;
-  margin: 100px auto 60px;
-  padding: 0 20px;
-  line-height: 1.6;
+/* -----------------------------------------------------------------------------
+   ФОРМА ОФОРМЛЕНИЯ
+----------------------------------------------------------------------------- */
+.checkout-form {
+  border-top:1px solid #e0e0e0;
+  padding:35px 0 60px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  max-width:400px;
+}
+.checkout-form label { font-size:0.9rem; }
+
+.checkout-form input[type="email"] {
+  padding:10px 14px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:1rem;
+  width:100%;
 }
 
-.policy-container h2, .policy-container h3 {
-  margin: 1.4em 0 0.6em;
+/* кастомный чекбокс */
+.chk-wrap {
+  position:relative;
+  padding-left:30px;
+  cursor:pointer;
+  user-select:none;
+}
+.chk-wrap input {
+  position:absolute;
+  opacity:0;
+  cursor:pointer;
+  height:0;width:0;
+}
+.checkmark {
+  position:absolute;
+  top:1px; left:0;
+  height:18px; width:18px;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:3px;
+}
+.chk-wrap input:checked ~ .checkmark {
+  background:#ff0000;
+  border-color:#ff0000;
+}
+.checkmark:after {
+  content:"";
+  position:absolute;
+  display:none;
+}
+.chk-wrap input:checked ~ .checkmark:after {
+  display:block;
+}
+.chk-wrap .checkmark:after {
+  left:5px; top:1px;
+  width:5px; height:10px;
+  border:solid #fff;
+  border-width:0 2px 2px 0;
+  transform:rotate(45deg);
 }
 
+.disclaimer {
+  font-size:0.75rem;
+  color:#777;
+  margin-top:-8px;
+}
+
+.checkout-btn {
+  background:#ff0000;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:14px 24px;
+  font-size:1.1rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s transform;
+}
+.checkout-btn:hover:not([disabled]) { transform:translateY(-2px); }
+.checkout-btn:disabled {
+  background:#ccc;
+  cursor:not-allowed;
+}
+
+/* -----------------------------------------------------------------------------
+   MOBILE TWEAKS
+----------------------------------------------------------------------------- */
+@media (max-width:600px) {
+  .checkout-form { max-width:100%; }
+}
+
+/* -----------------------------------------------------------------------------
+   СВЕТЛЫЙ ФОН ДЛЯ СТРАНИЦЫ-КОРЗИНЫ
+----------------------------------------------------------------------------- */
+.light-bg { background:#fff; color:#000; }
+
+/* -----------------------------------------------------------------------------
+   ЛОГОТИП (красный, как договаривались)
+----------------------------------------------------------------------------- */
 header .logo a,
 header .logo a:visited {
-  color: #FFF;       /* красный */
-  text-decoration: none;
-  font-size: inherit;   /* точно такой же размер */
+  color:#ff0000;
+  text-decoration:none;
 }
+
+/* -----------------------------------------------------------------------------
+   ОБЁРТКА КОРЗИНЫ
+----------------------------------------------------------------------------- */
+.bag-wrapper {
+  max-width: 900px;
+  margin: 120px auto 80px; /* сверху оставляем место под фикс‑логотип */
+  padding: 0 20px;
+  font-size: 0.95rem;
+}
+.bag-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+}
+.bag-sub {
+  color:#666;
+  margin-bottom: 2.5em;
+}
+
+/* -----------------------------------------------------------------------------
+   СТРОКА ТОВАРА
+----------------------------------------------------------------------------- */
+.bag-item {
+  display:grid;
+  grid-template-columns: 1fr 100px 160px 80px;
+  gap: 20px;
+  align-items:center;
+  border-top:1px solid #e0e0e0;
+  padding: 30px 0;
+}
+.item-info { display:flex; gap:20px; align-items:center; }
+.item-thumb {
+  width:120px; height:90px;
+  background:#f4f4f4;
+  display:flex; justify-content:center; align-items:center;
+  font-weight:700; font-size:0.9rem;
+  border:1px solid #ddd;
+}
+.item-desc h3 {
+  font-size:1rem; margin:0 0 6px;
+}
+.show-details {
+  font-size:0.85rem; color:#0071e3; text-decoration:none;
+}
+.show-details:hover { text-decoration:underline; }
+
+.item-qty label { display:none; }
+.item-qty select {
+  width:64px; padding:6px;
+  border:1px solid #d0d0d0; border-radius:4px;
+}
+
+.item-price { text-align:right; }
+.price-main { font-weight:700; white-space:nowrap; }
+.price-month { font-size:0.8rem; color:#666; }
+
+.item-remove a {
+  font-size:0.85rem; color:#0071e3; text-decoration:none;
+}
+.item-remove a:hover { text-decoration:underline; }
+
+/* -----------------------------------------------------------------------------
+   UPSELL/ПОЯСНЕНИЕ
+----------------------------------------------------------------------------- */
+.bag-upsell {
+  border-top:1px solid #e0e0e0;
+  padding:25px 0;
+}
+.upsell-title {
+  font-size:1rem;
+  font-style:italic;
+  margin:0;
+}
+
+/* -----------------------------------------------------------------------------
+   INFO О ДОСТАВКЕ
+----------------------------------------------------------------------------- */
+.bag-shipping {
+  border-top:1px solid #e0e0e0;
+  padding:25px 0 45px;
+}
+.bag-shipping h4 {
+  font-size:1rem; margin:0 0 8px;
+}
+.bag-shipping p { margin:0; }
+
+/* -----------------------------------------------------------------------------
+   MEDIA: адаптация до 600px
+----------------------------------------------------------------------------- */
+@media (max-width:600px) {
+  .bag-item { grid-template-columns:1fr; }
+  .item-price, .item-qty, .item-remove { text-align:left; }
+  .item-price { margin-top:10px; }
+  .item-qty   { margin-top:15px; }
+  .item-remove{ margin-top:10px; }
+}
+
+/* ---------- ОБНОВЛЁННАЯ СЕТКА ТОВАРА (без qty и remove) ---------- */
+.bag-item{
+  display:grid;
+  grid-template-columns: 1fr 160px; /* info | price */
+  gap:20px;
+  align-items:center;
+  border-top:1px solid #e0e0e0;
+  padding:30px 0;
+}
+
+/* ---------- СМЕЩАЕМ ФОРМУ ВПРАВО ---------- */
+.checkout-form{
+  margin-left:auto;       /* при ширине контейнера форма прижимается к правому краю */
+}
+@media(max-width:600px){
+  .checkout-form{margin-left:0;} /* на мобилке снова 100% ширина */
+}
+
+/* ———————————————————————————————————————————
+   Контейнер правовых документов
+———————————————————————————————————————————*/
+.policy-container{
+  max-width: 800px;           /* «колонка» по центру */
+  margin: 120px auto 80px;    /* верхний зазор под фикс‑логотип,
+                                 авто‑центрирование (auto) */
+  padding: 0 24px;            /* «дыхание» слева‑справа */
+  line-height: 1.6;
+  color:#fff;                 /* белый текст на чёрном фоне */
+}
+
+/* аккуратные отступы заголовков */
+.policy-container h2{margin:0 0 1rem}
+.policy-container h3{margin:2rem 0 0.75rem}

@@ -3,15 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Купить подписку FAKE</title>
+  <title>Корзина | FAKE</title>
+
+  <!-- общий стиль сайта -->
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 </head>
-<body class="dark-bg">
-  <div class="subscription-card red-bg">
-    <h2>Подписка FAKE</h2>
-    <p>Оформите подписку и получайте ничего каждый месяц. Цена: <strong>500 руб/мес</strong>.</p>
-    <button class="subscribe-btn">Купить</button>
-  </div>
+<body class="light-bg">
+  <!-- фиксированный красный логотип -->
+  <header>
+    <h1 class="logo"><a href="index.html">FAKE</a></h1>
+  </header>
+
+  <main class="bag-wrapper">
+    <h2 class="bag-title">Вы уверены, что готовы к этому?</h2>
+    <p class="bag-sub">Это не покупка. Это решение.</p>
+
+    <!-- товар -->
+    <section class="bag-item">
+      <div class="item-info">
+        <div class="item-thumb">НИЧЕГО</div>
+        <div class="item-desc">
+          <h3>Концепт «Ничего» — покупка честности.</h3>
+        </div>
+      </div>
+
+      <div class="item-price">
+        <span class="price-main">₽ 500,00/мес.</span><br>
+        <span class="price-month">Нет возвратов.<br>Нет претензий.</span>
+      </div>
+    </section>
+
+    <!-- фраза про подписку -->
+    <section class="bag-upsell">
+      <p class="upsell-title">
+        Каждый день ты забываешь про тысячу подписок, так пускай эта будет одной из них.
+      </p>
+    </section>
+
+    <!-- информация о доставке -->
+    
+
+    <!-- форма (смещена вправо) -->
+    <form class="checkout-form" action="pay.html" method="GET">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <label class="chk-wrap">
+        <input type="checkbox" id="agree" />
+        <span class="checkmark"></span>
+        Я осознаю, что покупаю ничего. И это нормально.
+      </label>
+      <p class="disclaimer">После оплаты вы получите письмо. Там будут ответы на вопросы, которые вы ещё не задали.</p>
+
+      <button type="submit" class="checkout-btn" id="buyBtn" disabled>Совершить сделку</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>
+      © 2025 FAKE — честный обман. ИП Григорьев А.И. ИНН 502991816026 <br>
+      <a href="mailto:support@fake.moscow">support@fake.moscow</a> ·
+      <a href="offer.html">Публичная оферта</a> |
+      <a href="privacy.html">Политика конфиденциальности</a>
+    </p>
+  </footer>
+
+  <!-- активация кнопки, когда чекбокс и email валидны -->
+  <script>
+    const agree  = document.getElementById('agree');
+    const email  = document.getElementById('email');
+    const buyBtn = document.getElementById('buyBtn');
+
+    function toggleBtn() {
+      buyBtn.disabled = !(agree.checked && email.checkValidity());
+    }
+    agree.addEventListener('change', toggleBtn);
+    email.addEventListener('input', toggleBtn);
+  </script>
 </body>
 </html>
