@@ -72,14 +72,13 @@
   <section id="final-screen" class="red-bg">
     <h2 class="final-word">НИЧЕГО</h2>
     <p class="tagline">— наш самый совершенный продукт.</p>
-    <a href="subscription.html" class="buy-button">Купить ничего</a>
+    <a data-href="subscription.html" class="buy-button">Купить ничего</a>
   </section>
 
   <!-- Footer with policy/offer links -->
   <footer>
   <p>
-    © 2025 FAKE — честный обман. <br>  
-    ИП Григорьев А.И. ИНН 502991816026  
+    © 2025 FAKE — честный обман. <br>    
     <a href="mailto:support@fake.moscow">support@fake.moscow</a> ·
     <a href="offer.html">Публичная оферта</a> |
     <a href="privacy.html">Политика конфиденциальности</a>
@@ -88,6 +87,14 @@
 
 
   <!-- GSAP and ScrollTrigger scripts, and main script -->
+  <script>
+  const btn = document.querySelector('.buy-button');
+  btn.addEventListener('click', e=>{
+    e.preventDefault();               // задерживаем переход
+    document.body.classList.add('blackout');
+    setTimeout(()=> location.href = btn.dataset.href, 475); // 1 секунда
+  });
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>

@@ -156,47 +156,51 @@ header .logo {
   font-style: italic;
 }
 
-/* Buy button (Kупить ничего) */
-.buy-button {
-  display: inline-block;
-  background: #fff;
-  color: #000;
-  font-weight: bold;
+/* ===== Кнопка «Купить ничего» — 007, но кольцо СТРОГО ВНЕ кнопки ===== */
+/* ----------------------------------------------------------
+   КНОПКА «Купить ничего»
+   – лёгкий подъём при :hover
+   – при .blackout на <body> экран плавно чернеет
+---------------------------------------------------------- */
+.buy-button{
+  position:relative;
+  display:inline-block;
+  padding:15px 36px;
+  font-size:1.1rem;
+  font-weight:700;
+  color:#000;
+  background:#fff;
+  border:none;
+  border-radius:6px;
+  border-bottom:4px solid #333;
+  cursor:pointer;
+  transition:transform .25s ease;
   text-decoration: none;
-  padding: 15px 30px;
-  border-radius: 5px;
-  border: none;
-  /* Simulate a convex (raised) effect with a bottom shadow line */
-  border-bottom: 4px solid #333;
-  cursor: pointer;
-  /* Initial shaking animation */
-  animation: shake 1s ease-in-out infinite;
-}
-/* Hover/focus state for Buy button */
-.buy-button:hover {
-  /* Intensify shake and add glow + dim background */
-  animation: shake-intense 0.2s ease-in-out infinite;
-  box-shadow: 0 0 10px 5px rgba(255,255,255,0.8), 
-              0 0 0 100vmax rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 1001; /* bring above dimmed overlay */
 }
 
-/* Shaking keyframes for the button */
-@keyframes shake {
-  0%   { transform: translate(1px, 1px) rotate(0deg); }
-  25%  { transform: translate(-1px, -2px) rotate(-1deg); }
-  50%  { transform: translate(2px, -1px) rotate(1deg); }
-  75%  { transform: translate(-1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -1px) rotate(-1deg); }
+/* лёгкий подъём */
+.buy-button:hover{
+  transform:translateY(-3px);
 }
-@keyframes shake-intense {
-  0%   { transform: translate(0px, 0px) rotate(0deg); }
-  25%  { transform: translate(-3px, 3px) rotate(-2deg); }
-  50%  { transform: translate(3px, -3px) rotate(2deg); }
-  75%  { transform: translate(-4px, 4px) rotate(0deg); }
-  100% { transform: translate(0px, 0px) rotate(-1deg); }
+
+/* --------- эффект «почернения» экрана --------- */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease;
+  z-index:10000;               /* поверх всего */
 }
+/* класс .blackout добавляется JS‑ом на 1 секунду */
+body.blackout::after{
+  opacity:1;
+}
+
+
+
 
 /* Footer styling */
 footer {
@@ -322,6 +326,8 @@ footer a:hover {
 @media (max-width:600px) {
   .checkout-form { max-width:100%; }
 }
+
+
 
 /* -----------------------------------------------------------------------------
    СВЕТЛЫЙ ФОН ДЛЯ СТРАНИЦЫ-КОРЗИНЫ
@@ -464,6 +470,147 @@ header .logo a:visited {
   color:#fff;                 /* белый текст на чёрном фоне */
 }
 
+/* =========================================================
+   Точная настройка расстояния до футера на странице корзины
+========================================================= */
+
+/* Десктоп ≥ 901 px — футер был слишком «глубоко» → поднимаем */
+@media (min-width:901px){
+  .bag-wrapper{
+    margin-bottom:40px;   /* было 80px → меньше зазор */
+  }
+}
+
+/* Смартфон ≤ 600 px — футер был близко → опускаем */
+@media (max-width:600px){
+  .bag-wrapper{
+    margin-bottom:200px;  /* было 80px → больше воздуха */
+  }
+}
+
 /* аккуратные отступы заголовков */
 .policy-container h2{margin:0 0 1rem}
 .policy-container h3{margin:2rem 0 0.75rem}
+
+/* =====================================
+   THANK‑YOU PAGE — светлый вариант
+===================================== */
+
+/* фон белый, базовый текст чёрный */
+body.thanks-bg{
+  background:#ffffff;
+  color:#000000;
+}
+
+/* логотип остаётся красным */
+.logo a,
+.logo a:visited{
+  color:#ff0000;
+  text-decoration:none;
+}
+
+/* центр блоков */
+/* центрируем весь контент вертикально и горизонтально */
+.thanks-wrapper{
+  height:100vh;                    /* весь экран */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;          /* по вертикали */
+  align-items:center;              /* по горизонтали */
+  text-align:center;
+  gap:22px;                        /* одинаковый «воздух» между элементами */
+  padding:20px;
+  box-sizing:border-box;
+}
+
+/* спиннер (чёрный) */
+.spinner{
+  width:44px;height:44px;
+  border:4px solid rgba(0,0,0,0.18);
+  border-top-color:#000;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ОГРОМНОЕ красное "ПОЗДРАВЛЯЕМ" */
+.congrats{
+  font-size:12vw;          /* во всю ширину/высоту экрана */
+  font-weight:700;
+  line-height:1.05;
+  margin:0;
+  color:#ff0000;
+  word-break:break-word;
+}
+
+/* подписи чёрные */
+.joined{font-size:1.2rem;margin:0;}
+.phrase {font-size:1.1rem;margin:10px 0 0;}
+
+/* эффекты "конец" / "начало" — без цвета, только изменение прозрачности */
+.word-end{
+  animation:dim 4s ease-in-out infinite;
+}
+.word-start{
+  animation:glow 4s ease-in-out infinite;
+}
+@keyframes dim{
+  0%,20% {opacity:1;}
+  50%,100%{opacity:0.3;}
+}
+@keyframes glow{
+  0%,20% {opacity:0.6;text-shadow:none;}
+  50%    {opacity:1;text-shadow:0 0 8px rgba(0,0,0,0.25);}
+  100%   {opacity:0.6;text-shadow:none;}
+}
+
+/* курсивная подпись */
+.note{font-size:0.95rem;max-width:380px;}
+
+/* подвал на белом фоне: чуть серый текст, чтобы не спорил с белым основой */
+footer{
+  text-align:center;
+  padding:40px 16px;
+  font-size:0.8rem;
+  color:#5a5a5a;
+}
+footer a{color:#5a5a5a;text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+
+/* ---------- логотип на белом фоне (чёрный) ---------- */
+.logo--black a,
+.logo--black a:visited{
+  color:#000;           /* чёрный */
+  text-decoration:none;
+}
+
+/* ---------- новые текстовые строки под заголовком ---------- */
+
+.fake-brand{
+  font-weight:700;
+}
+
+.line-2{
+  font-size:1.1rem;
+  margin:6px 0 0;
+}
+
+/* ---------- существующие анимации остаются ---------- */
+/* .word-end и .word-start уже описаны ранее */
+
+/* ---------- mobile fine‑tune ---------- */
+@media(max-width:600px){
+  .congrats{font-size:20vw;}   /* чуть меньше, но слитно */
+  .line-2 {font-size:1rem;}
+}
+
+/* картинка‑фраза */
+.phrase-img{
+  max-width:480px;   /* чтобы не разъезжалась на широких мониторах */
+  width:90%;
+  height:auto;
+  margin:12px 0 0;
+}
+@media(max-width:600px){
+  .phrase-img{max-width:320px;}
+}
